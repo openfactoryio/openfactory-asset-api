@@ -54,7 +54,7 @@ class Settings(BaseSettings):
             Environment variable: KAFKA_TOPIC
         kafka_consumer_group_id (str): Kafka consumer group ID for managing offset commits and partition assignment.
             Should be unique per deployed service instance group to ensure proper load balancing.
-            Example: "ofa_openfactory-stream-api-non-replicated-sharedassets".
+            Example: "ofa_openfactory-stream-api-non-replicated".
             Environment variable: KAFKA_CONSUMER_GROUP_ID
         queue_maxsize (int): Maximum size of the internal message queue used to buffer Kafka messages before streaming.
             Environment variable: QUEUE_MAXSIZE
@@ -68,7 +68,7 @@ class Settings(BaseSettings):
     """
     kafka_broker: str = Field(default="localhost:9092", env="KAFKA_BROKER")
     kafka_topic: str = Field(default="ofa_assets", env="KAFKA_TOPIC")
-    kafka_consumer_group_id: str = Field(default="ofa_openfactory-stream-api-non-replicated-sharedassets",
+    kafka_consumer_group_id: str = Field(default="ofa_openfactory-stream-api-non-replicated",
                                          env="KAFKA_CONSUMER_GROUP_ID")
     queue_maxsize: int = Field(default=1000, env="QUEUE_MAXSIZE")
     log_level: str = Field(default="info", env="LOG_LEVEL")

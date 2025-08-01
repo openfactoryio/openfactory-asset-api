@@ -86,32 +86,54 @@ Configured via environment variables (typically via a shared `.env` file):
 
 | Variable                        | Description                                        | Required                             |
 | ------------------------------- | -------------------------------------------------- | ------------------------------------ |
-| `ROUTING_LAYER_IMAGE`           | Docker image for the central routing layer API     | ❌ No (default: `ghcr.io/.../routing-layer:latest`) |
+| `ROUTING_LAYER_IMAGE`           | Docker image for the central routing layer API. Defaults to the image matching the present OpenFactory-AssetAPI version | ❌ No |
 | `ROUTING_LAYER_REPLICAS`        | Number of routing layer replicas                   | ❌ No (default: `1`)                 |
 | `ROUTING_LAYER_CPU_LIMIT`       | CPU limit per routing layer container              | ❌ No (default: `1`)                 |
 | `ROUTING_LAYER_CPU_RESERVATION` | CPU reservation per routing layer container        | ❌ No (default: `0.5`)               |
 | `GROUPING_STRATEGY`             | Strategy used to group assets (e.g., `workcenter`) | ❌ No (default: `workcenter`)        |
 | `DEPLOYMENT_PLATFORM`           | Deployment mode: `swarm` or `docker`               | ❌ No (default: `swarm`)             |
 
+<details>
+<summary>ℹ️ Note</summary>
+
+> The `ROUTING_LAYER_IMAGE` defaults to the image version matching the current OpenFactory-AssetAPI release. This should not be changed unless you have a specific reason, such as testing a custom build or developing internal features. Overriding this is intended only for advanced users or maintainers.
+
+</details>
+
+
 ### 🧩 FastAPI Group Services
 
 | Variable                           | Description                                                    | Required                                            |
 | ---------------------------------- | -------------------------------------------------------------- | --------------------------------------------------- |
-| `FASTAPI_GROUP_IMAGE`              | Docker image for group services                                | ❌ No (default: `ghcr.io/.../stream-api-non-replicated:latest`) |
+| `FASTAPI_GROUP_IMAGE`              | Docker image for group services. Defaults to the image matching the present OpenFactory-AssetAPI version | ❌ No |
 | `FASTAPI_GROUP_REPLICAS`           | Number of group service replicas                               | ❌ No (default: `1`)                                |
 | `FASTAPI_GROUP_CPU_LIMIT`          | CPU limit per group container                                  | ❌ No (default: `1`)                                |
 | `FASTAPI_GROUP_CPU_RESERVATION`    | CPU reservation per group container                            | ❌ No (default: `0.5`)                              |
 | `FASTAPI_GROUP_PORT_BASE`          | Base port for exposing group services during local development | ❌ No (default: `6000`)                             |
 | `UNS_FASTAPI_GROUP_GROUPING_LEVEL` | Grouping level for UNS-based FastAPI services                  | ❌ No (default: `workcenter`)                       |
 
+<details>
+<summary>ℹ️ Note</summary>
+
+> The `FASTAPI_GROUP_IMAGE` defaults to the image version matching the current OpenFactory-AssetAPI release. This should not be changed unless you have a specific reason, such as testing a custom build or developing internal features. Overriding this is intended only for advanced users or maintainers.
+
+</details>
+
 ### 🔄 Asset State API
 
 | Variable                    | Description                                     | Required                                        |
 | --------------------------- | ----------------------------------------------- | ----------------------------------------------- |
-| `STATE_API_IMAGE`           | Docker image for the asset state API service    | ❌ No (default: `ghcr.io/.../state-api:latest`) |
+| `STATE_API_IMAGE`           | Docker image for the asset state API service. Defaults to the image matching the present OpenFactory-AssetAPI version | ❌ No |
 | `STATE_API_REPLICAS`        | Number of replicas for the state API            | ❌ No (default: `1`)                            |
 | `STATE_API_CPU_LIMIT`       | CPU limit per container for the state API       | ❌ No (default: `0.5`)                          |
 | `STATE_API_CPU_RESERVATION` | CPU reservation per container for the state API | ❌ No (default: `0.25`)                         |
+
+<details>
+<summary>ℹ️ Note</summary>
+
+> The `STATE_API_IMAGE` defaults to the image version matching the current OpenFactory-AssetAPI release. This should not be changed unless you have a specific reason, such as testing a custom build or developing internal features. Overriding this is intended only for advanced users or maintainers.
+
+</details>
 
 ### 🛠️ Miscellaneous
 

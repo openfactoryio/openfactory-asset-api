@@ -63,6 +63,7 @@ Environment & Logging:
 import logging
 from pydantic_settings import BaseSettings
 from pydantic import Field, field_validator
+from openfactory import __version__ as OPENFACTORY_VERSION
 from openfactory.kafka import KSQLDBClient
 
 
@@ -87,7 +88,7 @@ class Settings(BaseSettings):
             Environment variable: `SWARM_NODE_HOST`. Default: "localhost".
         routing_layer_image (str): Docker image of the central routing layer API.
             Environment variable: `ROUTING_LAYER_IMAGE`.
-            Default: "ghcr.io/demo-smart-factory-concordia-university/routing-layer:latest".
+            Default: "ghcr.io/openfactoryio/routing-layer:OPENFACTORY_VERSION".
         routing_layer_replicas (int): Number of routing layer service replicas.
             Environment variable: `ROUTING_LAYER_REPLICAS`
         routing_layer_cpus_limit (float): CPU limit per routing layer container.
@@ -96,7 +97,7 @@ class Settings(BaseSettings):
             Environment variable: `ROUTING_LAYER_CPU_RESERVATION`
         fastapi_group_image (str): Docker image to use for group service containers.
             Environment variable: `FASTAPI_GROUP_IMAGE`.
-            Default: "ghcr.io/demo-smart-factory-concordia-university/stream-api-non-replicated:latest".
+            Default: "ghcr.io/openfactoryio/stream-api-non-replicated:OPENFACTORY_VERSION".
         fastapi_group_replicas (int): Number of service replicas per group.
             Environment variable: `FASTAPI_GROUP_REPLICAS`. Default: 3.
         fastapi_group_cpus_limit (float): CPU limit per group container.
@@ -110,7 +111,7 @@ class Settings(BaseSettings):
             Environment variable: `UNS_FASTAPI_GROUP_GROUPING_LEVEL`
         state_api_image (str): Docker image to use for the asset state API service.
             Environment variable: `STATE_API_IMAGE`.
-            Default: "ghcr.io/demo-smart-factory-concordia-university/state-api:latest".
+            Default: "ghcr.io/openfactoryio/state-api:OPENFACTORY_VERSION".
         state_api_replicas (int): Number of replicas for the asset state API service.
             Environment variable: `STATE_API_REPLICAS`. Default: 1.
         state_api_cpus_limit (float): CPU limit per asset state API container.
@@ -140,7 +141,7 @@ class Settings(BaseSettings):
 
     # Routing layer API
     routing_layer_image: str = Field(
-        default="ghcr.io/demo-smart-factory-concordia-university/routing-layer:latest",
+        default=f"ghcr.io/openfactoryio/routing-layer:v{OPENFACTORY_VERSION}",
         env="ROUTING_LAYER_IMAGE")
     routing_layer_replicas: int = Field(default=1, env="ROUTING_LAYER_REPLICAS")
     routing_layer_cpus_limit: float = Field(default=1, env="ROUTING_LAYER_CPU_LIMIT")
@@ -150,7 +151,7 @@ class Settings(BaseSettings):
 
     # FastAPI Group Services
     fastapi_group_image: str = Field(
-        default="ghcr.io/demo-smart-factory-concordia-university/stream-api-non-replicated:latest",
+        default=f"ghcr.io/openfactoryio/stream-api-non-replicated:v{OPENFACTORY_VERSION}",
         env="FASTAPI_GROUP_IMAGE")
     fastapi_group_replicas: int = Field(default=1, env="FASTAPI_GROUP_REPLICAS")
     fastapi_group_cpus_limit: float = Field(default=1, env="FASTAPI_GROUP_CPU_LIMIT")
@@ -160,7 +161,7 @@ class Settings(BaseSettings):
 
     # State API
     state_api_image: str = Field(
-        default="ghcr.io/demo-smart-factory-concordia-university/state-api:latest",
+        default=f"ghcr.io/openfactoryio/state-api:v{OPENFACTORY_VERSION}",
         env="STATE_API_IMAGE")
     state_api_replicas: int = Field(default=1, env="STATE_API_REPLICAS")
     state_api_cpus_limit: float = Field(default=0.5, env="STATE_API_CPU_LIMIT")
