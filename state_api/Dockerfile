@@ -35,8 +35,11 @@ WORKDIR /app
 COPY requirements_docker.txt .
 
 RUN pip install --no-cache-dir --upgrade pip \
-    && pip install --no-cache-dir -r requirements_docker.txt \
-    && pip install --no-cache-dir git+https://github.com/openfactoryio/openfactory-core.git@${OPENFACTORY_VERSION}
+    && pip install --no-cache-dir -r requirements_docker.txt
+
+# Install OpenFactory
+RUN pip install --no-cache-dir \
+      "git+https://github.com/openfactoryio/openfactory-core.git@${OPENFACTORY_VERSION}"
 
 # Copy application code
 COPY . state_api

@@ -39,11 +39,10 @@ COPY routing_layer /app/routing_layer
 RUN pip install --no-cache-dir --upgrade pip \
     && pip install --no-cache-dir .
 
-# Conditionally install latest OpenFactory Core if VERSION=dev
-RUN if [ "$VERSION" = "dev" ]; then \
-      pip install --no-cache-dir --upgrade \
-        "OpenFactory @ git+https://github.com/openfactoryio/openfactory-core.git@main"; \
-    fi
+# Install OpenFactory
+RUN pip uninstall -y openfactory && \
+    pip install --no-cache-dir \
+      "git+https://github.com/openfactoryio/openfactory-core.git@${OPENFACTORY_VERSION}"
 
 # Change ownership to the non-root user
 RUN chown -R $UNAME:$UNAME /app
