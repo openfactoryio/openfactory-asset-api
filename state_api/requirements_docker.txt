@@ -1,0 +1,6 @@
+# requirements_docker.txt: used to build Docker image of the State-API
+pydantic>=2.0
+pydantic-settings>=2.0
+confluent-kafka
+fastapi
+uvicorn
