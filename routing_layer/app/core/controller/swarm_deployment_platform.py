@@ -56,6 +56,8 @@ class SwarmDeploymentPlatform(DeploymentPlatform):
           `docker_client` is provided.
     """
 
+    STATE_API_SERVICE_NAME = "openfactory-state-api"
+
     def initialize(self) -> None:
         """
         Initialize the Swarm deployment backend.
@@ -241,3 +243,58 @@ class SwarmDeploymentPlatform(DeploymentPlatform):
             host_port = self._get_host_port(group_name)
             return f"http://{settings.swarm_node_host}:{host_port}"
         return f"http://{self._service_name(group_name)}:5555"
+
+    def deploy_state_api(self) -> None:
+        """
+        Deploy the centralized State API as a Docker service.
+        """
+
+        existing_services = self.docker_client.services.list(filters={"name": self.STATE_API_SERVICE_NAME})
+        if existing_services:
+            logger.info("🚀 State API already deployed on OpenFactory Swarm cluster")
+            return
+
+        logger.info("🚀 Deploying State API")
+
+        env_vars = {
+            "KSQLDB_URL": settings.ksqldb_url,
+            "KSQLDB_ASSETS_TABLE": settings.ksqldb_assets_table,
+            "LOG_LEVEL": settings.log_level,
+            "DEPLOYMENT_PLATFORM": "swarm"
+        }
+
+        try:
+            self.docker_client.services.create(
+                name=self.STATE_API_SERVICE_NAME,
+                image=settings.state_api_image,
+                networks=[settings.docker_network],
+                env=env_vars,
+                resources={
+                        "Limits": {"NanoCPUs": int(1000000000*settings.state_api_cpus_limit)},
+                        "Reservations": {"NanoCPUs": int(1000000000*settings.state_api_cpus_reservation)}
+                        }
+            )
+        except docker.errors.APIError as e:
+            logger.error(f"💥 Docker error launching State API: {e}")
+
+    def remove_state_api(self) -> None:
+        """
+        Remove the State API Docker service.
+        """
+        logger.info("Removing State API")
+        try:
+            service = self.docker_client.services.get(self.STATE_API_SERVICE_NAME)
+            service.remove()
+        except docker.errors.NotFound:
+            logger.warning("  Routing State API not deployed on OpenFactory Swarm cluster")
+        except docker.errors.APIError as e:
+            logger.error(f"  Docker API error: {e}")
+
+    def get_state_api_url(self) -> str:
+        """
+        Return the resolved URL of the State API.
+
+        Returns:
+            str: URL of the State API.
+        """
+        return f"http://{self.STATE_API_SERVICE_NAME}:5555"
