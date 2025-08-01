@@ -118,4 +118,4 @@ Key environment variables include:
 | KAFKA\_BROKER        | Kafka bootstrap server address | `<kafka-broker-ip>:9092`  |
 | LOG\_LEVEL           | Logging verbosity level        | `info`                    |
 
-For a comprehensive list of configuration options and their defaults, refer to the Settings class in [routing_layer/app/config.py](routing_layer/app/config.py).
+For a comprehensive list of configuration options and their defaults, refer to the Settings class in [routing_layer/app/config.py](routing_layer/app/config.py) or the detailed documentation of the [routing layer](routing_layer/README.md#️-environment-configuration).
