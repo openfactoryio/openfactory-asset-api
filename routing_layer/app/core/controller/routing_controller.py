@@ -40,15 +40,15 @@ class RoutingController:
 
         The corresponding classes must be registered as entry points in `pyproject.toml` under:
 
-        - `openfactory.grouping_strategies`
-        - `openfactory.deployment_platforms`
+        - `openfactory_routing_layer.grouping_strategies`
+        - `openfactory_routing_layer.deployment_platforms`
 
         Raises:
             ValueError: If no matching plugin is found, or if the loaded class does not
                         subclass the expected interface.
         """
-        strategy_cls = load_plugin("openfactory.grouping_strategies", settings.grouping_strategy)
-        platform_cls = load_plugin("openfactory.deployment_platforms", settings.deployment_platform)
+        strategy_cls = load_plugin("openfactory_routing_layer.grouping_strategies", settings.grouping_strategy)
+        platform_cls = load_plugin("openfactory_routing_layer.deployment_platforms", settings.deployment_platform)
 
         if not issubclass(strategy_cls, GroupingStrategy):
             raise TypeError(
