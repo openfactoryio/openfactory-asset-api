@@ -67,10 +67,10 @@ This will:
 * Start one or more virtual sensor containers using Docker Compose
 * Register virtual devices with the OpenFactory backend
 
-You can use `openfactory-sdk` commands to inspect and manage the virtual factory:
+You can use `ofa` commands to inspect and manage the virtual factory:
 ```bash
-openfactory-sdk asset ls                              # List deployed assets
-openfactory-sdk asset inspect VIRTUAL-TEMP-SENS-002   # Inspect a specific asset
+ofa asset ls                              # List deployed assets
+ofa asset inspect VIRTUAL-TEMP-SENS-002   # Inspect a specific asset
 ```
 
 To stop the virtual factory:
@@ -103,7 +103,7 @@ To stop the virtual factory:
 
 > ⚠️ **Kafka Warnings Are Normal**
 >
-> When using `openfactory-sdk`, you may see warnings like:
+> When using `ofa`, you may see warnings like:
 >
 > ```text
 > %3|1753376340.630|FAIL|rdkafka#producer-1| [thrd:broker:29092/bootstrap]: broker:29092/bootstrap: Failed to resolve 'broker:29092': No address associated with hostname (after 1ms in state CONNECT)
