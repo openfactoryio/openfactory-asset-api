@@ -25,7 +25,7 @@ echo "🔧 Deploying virtual devices to OpenFactory..."
 for workcenter_dir in dev_tools/virtual_factory/*/; do
   workcenter=$(basename "$workcenter_dir")
   echo "Deploying workcenter: $workcenter"
-  openfactory-sdk device up "$workcenter_dir"
+  ofa device up "$workcenter_dir"
 done
 
 echo "✅ Virtual factory is now running."

@@ -21,7 +21,7 @@ echo "🗑️ Removing OpenFactory devices..."
 for workcenter_dir in dev_tools/virtual_factory/*/; do
   workcenter=$(basename "$workcenter_dir")
   echo "Removing workcenter: $workcenter"
-  openfactory-sdk device down "$workcenter_dir"
+  ofa device down "$workcenter_dir"
 done
 
 echo "⛔ Stopping and removing virtual sensors..."
