@@ -25,10 +25,10 @@ dev = [
 [tool.setuptools]
 packages = ["routing_layer"]
 
-[project.entry-points."openfactory.grouping_strategies"]
+[project.entry-points."openfactory_routing_layer.grouping_strategies"]
 workcenter = "routing_layer.app.core.controller.unslevel_grouping_strategy:UNSLevelGroupingStrategy"
 
-[project.entry-points."openfactory.deployment_platforms"]
+[project.entry-points."openfactory_routing_layer.deployment_platforms"]
 docker = "routing_layer.app.core.controller.docker_deployment_platform:DockerDeploymentPlatform"
 swarm = "routing_layer.app.core.controller.swarm_deployment_platform:SwarmDeploymentPlatform"
 
