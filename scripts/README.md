@@ -14,8 +14,18 @@ This directory contains utility scripts used for managing and automating various
   
   ```bash
   python scripts/bump_version.py 0.4.0
+  ```
 
 * Scripts here are typically used in CI/CD environments, but can also be invoked manually when needed.
+
+## Dependencies
+
+* Required Python packages for scripts are listed in `scripts/requirements_scripts.txt`.
+* Before running any Python scripts in this folder, install the dependencies with:
+
+  ```bash
+  python3 -m pip install -r scripts/requirements_scripts.txt
+  ```
 
 ## Contributing
 
@@ -26,6 +36,7 @@ If you're adding a new automation or maintenance script, place it in this direct
   - What the script does
   - Expected arguments and usage
   - A dedicated **Dependency** section listing any required third-party libraries or external tools needed for the script to run
+- Add any new required libraries to `requirements_scripts.txt`
 
 ## Notes
 
