@@ -118,7 +118,7 @@ Install in editable mode with dev tools:
 pip install -e .[dev]
 ./dev-setup.sh  # installs latest openfactory-core
 ```
-
+> 🔧 For a zero-config local dev environment using Docker and VS Code, see [Development Container Setup](./docs/devcontainer.md)
 ---
 
 ### 💻 CLI Commands
