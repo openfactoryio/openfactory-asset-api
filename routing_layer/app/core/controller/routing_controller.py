@@ -70,10 +70,13 @@ class RoutingController:
         """
         logger.info("Initializing Routing Layer...")
         self.deployment_platform.initialize()
+        logger.info("Setting up groups...")
         for group in self.grouping_strategy.get_all_groups():
             logger.info(f"Spin up group [{group}]")
             self.grouping_strategy.create_derived_stream(group)
             self.deployment_platform.deploy_service(group)
+        if self.grouping_strategy.get_all_groups() == []:
+            logger.info("⚠️  Warning: No groups setup")
         logger.info("Spin up State-API")
         self.deployment_platform.deploy_state_api()
         logger.info("✅ Routing Layer initialization complete.")
