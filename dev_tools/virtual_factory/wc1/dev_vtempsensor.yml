@@ -9,9 +9,11 @@ devices:
       workcenter: WC1
       asset: temp
 
-    agent:
-      port: 2101
-      device_xml: ../../virtual_assets/temp_sensor/device.xml
-      adapter:
-        ip: virtual-temp-sens-001
-        port: 7878
+    connector:
+      type: mtconnect
+      agent:
+        port: 2101
+        device_xml: ../../virtual_assets/temp_sensor/device.xml
+        adapter:
+          ip: virtual-temp-sens-001
+          port: 7878
