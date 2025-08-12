@@ -10,7 +10,7 @@ This project supports **Visual Studio Code Remote Containers**, using a pre-conf
 
 ---
 
-## 📦 Getting Started
+## 🚀 Getting Started
 
 ### 1. Prerequisites
 
@@ -43,7 +43,7 @@ spinup
 
 This will:
 
-* Launch a single-node Kafka broker and ksqlDB instance (via `openfactory-sdk`)
+* Launch a single-node Kafka broker and ksqlDB instance (using the `openfactory-sdk` devcontainer feature)
 * Export the required environment variables into your shell session
 
 To stop and clean up:
@@ -158,7 +158,7 @@ curl localhost:5555/asset_state?asset_uuid=VIRTUAL-TEMP-SENS-001 | jq
 | Feature                   | Description                          |
 | ------------------------- | ------------------------------------ |
 | Python 3.12               | Pre-installed in the container       |
-| `openfactory-sdk`         | CLI tools for Kafka and device mgmt  |
+| `ofa`                     | CLI tool for Asset management        |
 | Kafka + ksqlDB (via SDK)  | One-node development setup           |
 | VS Code Extensions        | Python + Docker tooling              |
 | Dev Environment Variables | Set via `containerEnv` in the config |
