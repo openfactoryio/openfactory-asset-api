@@ -4,10 +4,6 @@ set -e
 # -----------------------------------------------------------------------------
 # Script to tear down the virtual factory environment
 #
-# This script:
-#   1. Removes virtual devices from the OpenFactory backend
-#   2. Stops and removes virtual asset adapter containers
-#
 # Usage:
 #   ./dev_tools/teardown_virtual_factory.sh
 #
@@ -23,8 +19,5 @@ for workcenter_dir in dev_tools/virtual_factory/*/; do
   echo "Removing workcenter: $workcenter"
   ofa device down "$workcenter_dir"
 done
-
-echo "⛔ Stopping and removing virtual sensors..."
-docker compose -f dev_tools/virtual_factory/docker-compose.yml down
 
 echo "✅ Virtual factory has been torn down."

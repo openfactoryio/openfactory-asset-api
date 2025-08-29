@@ -13,7 +13,12 @@ devices:
       type: mtconnect
       agent:
         port: 2101
-        device_xml: ../../virtual_assets/temp_sensor/device.xml
+        device_xml: github://openfactoryio:openfactory-virtual-assets@/virtual_assets/temp_sensor/device.xml
         adapter:
-          ip: virtual-temp-sens-001
+          image: ghcr.io/openfactoryio/virtual-temp-sensor:latest
           port: 7878
+          environment:
+            - SLEEP_INTERVAL=2.0
+            - MIN_TEMP=100
+            - MAX_TEMP=120
+            - ADAPTER_PORT=7878
