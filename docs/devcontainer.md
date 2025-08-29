@@ -57,11 +57,6 @@ teardown
 
 Before using the AssetAPI, deploy the virtual factory, which simulates asset devices producing telemetry. Without this, the API has no data to serve.
 
-To build the virtual assets:
-```bash
-./dev_tools/build_virtual_factory.sh
-```
-
 To deploy the virtual factory:
 ```bash
 ./dev_tools/deploy_virtual_factory.sh
