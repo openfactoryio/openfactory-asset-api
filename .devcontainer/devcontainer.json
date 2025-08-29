@@ -22,6 +22,7 @@
     }
   },
   "containerEnv": {
+    "OPENFACTORY_ENV": "dev",
     "ENVIRONMENT": "local",
     "DEPLOYMENT_PLATFORM": "docker",
     "OPENFACTORY_UNS_SCHEMA": "/workspaces/openfactory-asset-api/dev_tools/virtual_factory/uns.yml",
@@ -29,5 +30,5 @@
     "FASTAPI_GROUP_IMAGE": "ofa/stream-api-non-replicated",
     "STATE_API_IMAGE": "ofa/state-api"
   },
-  "postCreateCommand": "pip install -e .[dev] && ./dev-setup.sh && ./dev_tools/build_virtual_assets.sh"
+  "postCreateCommand": "pip install -e .[dev] && ./dev-setup.sh"
 }
