@@ -64,7 +64,7 @@ To deploy the virtual factory:
 
 This will:
 
-* Start one or more virtual sensor containers using Docker Compose
+* Start the virtual sensor
 * Register virtual devices with the OpenFactory backend
 
 You can use `ofa` commands to inspect and manage the virtual factory:
@@ -77,27 +77,6 @@ To stop the virtual factory:
 ```bash
 ./dev_tools/teardown_virtual_factory.sh
 ```
-
----
-
-> ℹ️ **Debug Ports**
->
-> Ports like `7871`, `7872` are exposed for **debugging purposes**, to access the virtual device adapters directly.
-> These ports are **not required** for communication within the OpenFactory platform.
->
-> To observe raw sensor output (e.g., for development or testing), use:
->
-> ```bash
-> telnet localhost 7871
-> ```
->
-> You'll receive a stream like:
->
-> ```
-> Temp|101.32
-> Temp|100.88
-> ...
-> ```
 
 ---
 
