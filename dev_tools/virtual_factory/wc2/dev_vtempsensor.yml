@@ -15,7 +15,7 @@ devices:
         port: 2102
         device_xml: github://openfactoryio:openfactory-virtual-assets@/virtual_assets/temp_sensor/device.xml
         adapter:
-          image: ghcr.io/openfactoryio/virtual-temp-sensor:latest
+          image: ghcr.io/openfactoryio/virtual-temp-sensor:${OPENFACTORY_VERSION}
           port: 7878
           environment:
             - SLEEP_INTERVAL=4.0
