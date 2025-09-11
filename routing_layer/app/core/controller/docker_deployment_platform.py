@@ -121,7 +121,7 @@ class DockerDeploymentPlatform(DeploymentPlatform):
             container.stop()
             container.remove()
         except docker.errors.NotFound:
-            logger.warning(f"⚠️ Container '{container_name}' not found.")
+            logger.warning(f"⚠️  Container '{container_name}' not found.")
         except docker.errors.APIError as e:
             logger.error(f"💥 Docker error removing container: {e}")
 
@@ -174,7 +174,7 @@ class DockerDeploymentPlatform(DeploymentPlatform):
             container.stop()
             container.remove()
         except docker.errors.NotFound:
-            logger.warning("⚠️ Routing layer API container not found.")
+            logger.warning("⚠️  Routing layer API container not found.")
         except docker.errors.APIError as e:
             logger.error(f"💥 Docker error removing routing layer API: {e}")
 
