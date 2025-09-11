@@ -160,53 +160,54 @@ async def get_asset_state(
         LIMIT 1;
         """
         try:
-            df = ksql.query(ksql_query)
+            rows = ksql.query(ksql_query)
         except Exception as e:
             logger.error(f"[asset_state API] ksqlDB query failed: {type(e).__name__}: {e}")
             raise HTTPException(status_code=500, detail=f"ksqlDB query failed: {type(e).__name__}: {e}")
 
-        if df.empty:
+        if not rows:
             logger.info("[asset_state API] No data found for the given asset_uuid and id.")
             raise HTTPException(status_code=404, detail="No data found for the given asset_uuid and id.")
 
-        row = df.iloc[0]
+        row = rows[0]
         return {
-            "asset_uuid": row["ASSET_UUID"],
-            "id": row["ID"],
-            "value": row["VALUE"],
-            "type": row["TYPE"],
-            "tag": row["TAG"],
-            "timestamp": row["TIMESTAMP"]
+            "asset_uuid": row.get("ASSET_UUID"),
+            "id": row.get("ID"),
+            "value": row.get("VALUE"),
+            "type": row.get("TYPE"),
+            "tag": row.get("TAG"),
+            "timestamp": row.get("TIMESTAMP"),
         }
 
     else:
+        # Case: Query for all DataItems of the asset
         ksql_query = f"""
         SELECT asset_uuid, id, value, type, tag, timestamp
         FROM {KSQLDB_ASSETS_TABLE}
         WHERE asset_uuid = '{escaped_asset_uuid}';
         """
         try:
-            df = ksql.query(ksql_query)
+            rows = ksql.query(ksql_query)
         except Exception as e:
             logger.error(f"[asset_state API] ksqlDB query failed: {type(e).__name__}: {e}")
             raise HTTPException(status_code=500, detail=f"ksqlDB query failed: {type(e).__name__}: {e}")
 
-        if df.empty:
+        if not rows:
             logger.info("[asset_state API] No data found for the given asset_uuid.")
             raise HTTPException(status_code=404, detail="No data found for the given asset_uuid.")
 
         data_items = [
             {
-                "id": row["ID"],
-                "value": row["VALUE"],
-                "type": row["TYPE"],
-                "tag": row["TAG"],
-                "timestamp": row["TIMESTAMP"]
+                "id": row.get("ID"),
+                "value": row.get("VALUE"),
+                "type": row.get("TYPE"),
+                "tag": row.get("TAG"),
+                "timestamp": row.get("TIMESTAMP"),
             }
-            for _, row in df.iterrows()
+            for row in rows
         ]
 
         return {
             "asset_uuid": asset_uuid,
-            "dataItems": data_items
+            "dataItems": data_items,
         }

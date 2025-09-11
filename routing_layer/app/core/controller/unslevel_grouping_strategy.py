@@ -132,8 +132,9 @@ class UNSLevelGroupingStrategy(GroupingStrategy):
         FROM {settings.ksqldb_uns_map};
         """
         try:
-            df = ksql.query(query)
-            return df['GROUPS'].dropna().unique().tolist()
+            rows = ksql.query(query)
+            groups = [row.get("GROUPS") for row in rows if row.get("GROUPS")]
+            return list(set(groups))  # deduplicate
         except Exception as e:
             logger.error(f"Error querying all groups: {e}")
             return []
@@ -154,8 +155,9 @@ class UNSLevelGroupingStrategy(GroupingStrategy):
         WHERE UNS_LEVELS['{self.grouping_level}'] = '{escape_ksql_literal(group_name)}';
         """
         try:
-            df = ksql.query(query)
-            return df['ASSET_UUID'].dropna().unique().tolist()
+            rows = ksql.query(query)
+            assets = [row.get("ASSET_UUID") for row in rows if row.get("ASSET_UUID")]
+            return list(set(assets))  # deduplicate
         except Exception as e:
             logger.error(f"Error querying all assets from group {group_name}: {e}")
             return []
