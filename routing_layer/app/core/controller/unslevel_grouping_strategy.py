@@ -43,6 +43,7 @@ from routing_layer.app.config import settings, ksql
 from routing_layer.app.core.logger import get_logger
 from routing_layer.app.core.controller.grouping_strategy import GroupingStrategy
 from openfactory.assets import Asset
+from openfactory.kafka.ksql import KSQLDBClientException
 
 
 logger = get_logger(__name__)
@@ -199,6 +200,15 @@ class UNSLevelGroupingStrategy(GroupingStrategy):
         Returns:
             None
         """
-        statement = f"DROP STREAM {self._get_stream_name(group_name)} DELETE TOPIC;"
+        stream_name = self._get_stream_name(group_name)
+        statement = f"DROP STREAM {stream_name} DELETE TOPIC;"
         logger.info(f" Removing derived stream with statement: {statement}")
-        ksql.statement_query(statement)
+        try:
+            if stream_name.upper() not in ksql.streams():
+                logger.warning(f"⚠️  Stream '{stream_name}' does not exist.")
+                return
+
+            ksql.statement_query(statement)
+        except KSQLDBClientException as e:
+            logger.error(e)
+            logger.error(f" Failed to remove derived stream. Try to remove it manualy with '{statement}' in ksql")
